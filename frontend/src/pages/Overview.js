@@ -523,16 +523,101 @@ const AccountInfo = (props) => {
               mb: 1,
             }}
           >
+            
             <Typography
               variant="body1"
               color="text.primary"
               fontWeight={600}
               gutterBottom
             >
-              Sequence
+             Sequence
             </Typography>
             <Typography variant="body1" color="text.primary" gutterBottom>
               {getSequence(account?.account)}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            sx={{
+              mb: 1,
+            }}
+          >
+            
+            <Typography
+              variant="body1"
+              color="text.primary"
+              fontWeight={600}
+              gutterBottom
+            >
+             Start Time
+            </Typography>
+            <Typography variant="body1" color="text.primary" gutterBottom>
+              {getStartTime(account?.account)}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            sx={{
+              mb: 1,
+            }}
+          >
+            
+            <Typography
+              variant="body1"
+              color="text.primary"
+              fontWeight={600}
+              gutterBottom
+            >
+            End Time
+            </Typography>
+            <Typography variant="body1" color="text.primary" gutterBottom>
+              {getEndTime(account?.account)}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            sx={{
+              mb: 1,
+            }}
+          >
+            
+            <Typography
+              variant="body1"
+              color="text.primary"
+              fontWeight={600}
+              gutterBottom
+            >
+              Periods
+            </Typography>
+            <Typography variant="body1" color="text.primary" gutterBottom>
+              {getPeriods(account?.account)}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            sx={{
+              mb: 1,
+            }}
+          >
+            
+            <Typography
+              variant="body1"
+              color="text.primary"
+              fontWeight={600}
+              gutterBottom
+            >
+              Tokens
+            </Typography>
+            <Typography variant="body1" color="text.primary" gutterBottom>
+              {getTokens(account?.account)}
             </Typography>
           </Grid>
         </Grid>
@@ -604,3 +689,80 @@ const getAccountNumber = (account) => {
       return 0;
   }
 };
+
+const getStartTime = (account) =>{
+  switch (account["@type"]) {
+    case "/cosmos.vesting.v1beta1.ContinuousVestingAccount": {
+      return account?.base_vesting_account?.base_account?.start_time || 0;
+    }
+    case "/cosmos.vesting.v1beta1.DelayedVestingAccount": {
+      return account?.base_vesting_account?.base_account?.start_time || 0;
+    }
+    case "/cosmos.vesting.v1beta1.PeriodicVestingAccount": {
+      return account?.base_vesting_account?.base_account?.start_time || 0;
+    }
+    case "/cosmos.vesting.v1beta1.PermanentLockedAccount": {
+      return account?.base_vesting_account?.base_account?.start_time || 0;
+    }
+    default:
+      return 0;
+  }
+};
+
+const getEndTime = (account) =>{
+  switch (account["@type"]) {
+    case "/cosmos.vesting.v1beta1.ContinuousVestingAccount": {
+      return account?.base_vesting_account?.base_account?.end_time || 1;
+    }
+    case "/cosmos.vesting.v1beta1.DelayedVestingAccount": {
+      return account?.base_vesting_account?.base_account?.end_time || 1;
+    }
+    case "/cosmos.vesting.v1beta1.PeriodicVestingAccount": {
+      return account?.base_vesting_account?.base_account?.end_time || 1;
+    }
+    case "/cosmos.vesting.v1beta1.PermanentLockedAccount": {
+      return account?.base_vesting_account?.base_account?.end_time || 1;
+    }
+    default:
+      return 0;
+  }
+};
+
+const getTokens = (account) =>{
+  switch (account["@type"]) {
+    case "/cosmos.vesting.v1beta1.ContinuousVestingAccount": {
+      return account?.base_vesting_account?.base_account?.tokens;
+    }
+    case "/cosmos.vesting.v1beta1.DelayedVestingAccount": {
+      return account?.base_vesting_account?.base_account?.tokens;
+    }
+    case "/cosmos.vesting.v1beta1.PeriodicVestingAccount": {
+      return account?.base_vesting_account?.base_account?.tokens;
+    }
+    case "/cosmos.vesting.v1beta1.PermanentLockedAccount": {
+      return account?.base_vesting_account?.base_account?.tokens;
+    }
+    default:
+      return 0;
+  }
+};
+
+const getPeriods = (account) =>{
+  switch (account["@type"]) {
+    case "/cosmos.vesting.v1beta1.ContinuousVestingAccount": {
+      return account?.base_vesting_account?.base_account?.periods || 0;
+    }
+    case "/cosmos.vesting.v1beta1.DelayedVestingAccount": {
+      return account?.base_vesting_account?.base_account?.periods || 0;
+    }
+    case "/cosmos.vesting.v1beta1.PeriodicVestingAccount": {
+      return account?.base_vesting_account?.base_account?.periods || 0;
+    }
+    case "/cosmos.vesting.v1beta1.PermanentLockedAccount": {
+      return account?.base_vesting_account?.base_account?.periods || 0;
+    }
+    default:
+      return 0;
+  }
+};
+
